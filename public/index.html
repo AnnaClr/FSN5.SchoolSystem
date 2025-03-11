@@ -1,118 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escola API</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link href="./styles/style.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container mt-5">
-    <h1 class="text-center mb-4">SISTEMA ESCOLAR</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escola API</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="./styles/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4" style="color: #3498db;">SISTEMA ESCOLAR</h1>
 
-    <!-- Seção de Alunos -->
-    <div class="card mb-4">
-      <div class="card-header">
-        <h2>Alunos</h2>
-      </div>
-      <div class="card-body">
-        <button class="btn btn-primary mb-3" onclick="openModal('aluno')">Adicionar Aluno</button>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Idade</th>
-              <th>Turma</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="alunosTable">
-            <!-- Dados dos alunos serão preenchidos aqui via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Seção de Professores -->
-    <div class="card mb-4">
-      <div class="card-header">
-        <h2>Professores</h2>
-      </div>
-      <div class="card-body">
-        <button class="btn btn-primary mb-3" onclick="openModal('professor')">Adicionar Professor</button>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Disciplina</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="professoresTable">
-            <!-- Dados dos professores serão preenchidos aqui via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Seção de Boletins -->
-    <div class="card mb-4">
-      <div class="card-header">
-        <h2>Boletins</h2>
-      </div>
-      <div class="card-body">
-        <button class="btn btn-primary mb-3" onclick="openModal('boletim')">Adicionar Boletim</button>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <!-- <th>ID</th> -->
-              <th>Aluno</th>
-              <th>Programação</th>
-              <th>Lógica Matemática</th>
-              <th>Pré-Cálculo</th>
-              <th>Física</th>
-              <th>Introdução a Computação</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="boletinsTable">
-            <!-- Dados dos boletins serão preenchidos aqui via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal para Adicionar/Editar -->
-  <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">Adicionar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <!-- Seção de Alunos -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Alunos</h2>
         </div>
-        <div class="modal-body">
-          <form id="form">
-            <!-- Campos do formulário serão preenchidos dinamicamente via JavaScript -->
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary" onclick="save()">Salvar</button>
+        <div class="card-body">
+          <div class="mb-3">
+            <input
+              type="text"
+              id="searchAluno"
+              class="form-control"
+              placeholder="Pesquisar aluno por nome..."
+            />
+          </div>
+          <button class="btn btn-primary mb-3" onclick="openModal('aluno')">
+            Adicionar Aluno
+          </button>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Turma</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="alunosTable">
+              <!-- Dados dos alunos serão preenchidos aqui via JavaScript -->
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Bootstrap JS e dependências -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <!-- Custom JS -->
-  <script src="./js/script.js"></script>
-</body>
+      <!-- Seção de Professores -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Professores</h2>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <input
+              type="text"
+              id="searchProfessor"
+              class="form-control"
+              placeholder="Pesquisar professor por nome..."
+            />
+          </div>
+          <button class="btn btn-primary mb-3" onclick="openModal('professor')">
+            Adicionar Professor
+          </button>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Disciplina</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="professoresTable">
+              <!-- Dados dos professores serão preenchidos aqui via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Seção de Boletins -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Boletins</h2>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-primary mb-3" onclick="openModal('boletim')">
+            Adicionar Boletim
+          </button>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Aluno ID</th>
+                <th>Programação</th>
+                <th>Lógica Matemática</th>
+                <th>Pré-Cálculo</th>
+                <th>Física</th>
+                <th>Introdução a Computação</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="boletinsTable">
+              <!-- Dados dos boletins serão preenchidos aqui via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Adicionar/Editar/Visualizar -->
+    <div
+      class="modal fade"
+      id="modalForm"
+      tabindex="-1"
+      aria-labelledby="modalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Adicionar</h5>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              <!-- Campos do formulário serão preenchidos aqui via JavaScript -->
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+            <button type="button" class="btn btn-primary" onclick="save()">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS e dependências -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./js/script.js"></script>
+  </body>
 </html>

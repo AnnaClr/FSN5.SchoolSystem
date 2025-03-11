@@ -1,5 +1,5 @@
-const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
@@ -7,16 +7,16 @@ const port = 3000;
 app.use(express.json());
 
 // Rotas para Alunos
-app.get('/alunos', async (req, res) => {
+app.get("/alunos", async (req, res) => {
   try {
     const alunos = await prisma.aluno.findMany();
     res.json(alunos);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar alunos' });
+    res.status(500).json({ error: "Erro ao buscar alunos" });
   }
 });
 
-app.post('/alunos', async (req, res) => {
+app.post("/alunos", async (req, res) => {
   const { nome, idade, turma } = req.body;
   try {
     const aluno = await prisma.aluno.create({
@@ -24,11 +24,11 @@ app.post('/alunos', async (req, res) => {
     });
     res.json(aluno);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao criar aluno' });
+    res.status(500).json({ error: "Erro ao criar aluno" });
   }
 });
 
-app.put('/alunos/:id', async (req, res) => {
+app.put("/alunos/:id", async (req, res) => {
   const { id } = req.params;
   const { nome, idade, turma } = req.body;
   try {
@@ -38,33 +38,50 @@ app.put('/alunos/:id', async (req, res) => {
     });
     res.json(aluno);
   } catch (error) {
-    res.status(404).json({ error: 'Aluno não encontrado' });
+    res.status(404).json({ error: "Aluno não encontrado" });
   }
 });
 
-app.delete('/alunos/:id', async (req, res) => {
+app.delete("/alunos/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.aluno.delete({
       where: { id: parseInt(id) },
     });
-    res.json({ message: 'Aluno deletado com sucesso' });
+    res.json({ message: "Aluno deletado com sucesso" });
   } catch (error) {
-    res.status(404).json({ error: 'Aluno não encontrado' });
+    res.status(404).json({ error: "Aluno não encontrado" });
+  }
+});
+
+// Rota para buscar aluno e seu boletim
+app.get("/alunos/:id/boletim", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const aluno = await prisma.aluno.findUnique({
+      where: { id: parseInt(id) },
+      include: { boletins: true },
+    });
+    if (!aluno) {
+      return res.status(404).json({ error: "Aluno não encontrado" });
+    }
+    res.json(aluno);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar aluno e boletim" });
   }
 });
 
 // Rotas para Professores
-app.get('/professores', async (req, res) => {
+app.get("/professores", async (req, res) => {
   try {
     const professores = await prisma.professor.findMany();
     res.json(professores);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar professores' });
+    res.status(500).json({ error: "Erro ao buscar professores" });
   }
 });
 
-app.post('/professores', async (req, res) => {
+app.post("/professores", async (req, res) => {
   const { nome, disciplina } = req.body;
   try {
     const professor = await prisma.professor.create({
@@ -72,11 +89,11 @@ app.post('/professores', async (req, res) => {
     });
     res.json(professor);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao criar professor' });
+    res.status(500).json({ error: "Erro ao criar professor" });
   }
 });
 
-app.put('/professores/:id', async (req, res) => {
+app.put("/professores/:id", async (req, res) => {
   const { id } = req.params;
   const { nome, disciplina } = req.body;
   try {
@@ -86,36 +103,43 @@ app.put('/professores/:id', async (req, res) => {
     });
     res.json(professor);
   } catch (error) {
-    res.status(404).json({ error: 'Professor não encontrado' });
+    res.status(404).json({ error: "Professor não encontrado" });
   }
 });
 
-app.delete('/professores/:id', async (req, res) => {
+app.delete("/professores/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.professor.delete({
       where: { id: parseInt(id) },
     });
-    res.json({ message: 'Professor deletado com sucesso' });
+    res.json({ message: "Professor deletado com sucesso" });
   } catch (error) {
-    res.status(404).json({ error: 'Professor não encontrado' });
+    res.status(404).json({ error: "Professor não encontrado" });
   }
 });
 
 // Rotas para Boletins
-app.get('/boletins', async (req, res) => {
+app.get("/boletins", async (req, res) => {
   try {
     const boletins = await prisma.boletim.findMany({
       include: { aluno: true },
     });
     res.json(boletins);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar boletins' });
+    res.status(500).json({ error: "Erro ao buscar boletins" });
   }
 });
 
-app.post('/boletins', async (req, res) => {
-  const { alunoId, disciplina1, disciplina2, disciplina3, disciplina4, disciplina5 } = req.body;
+app.post("/boletins", async (req, res) => {
+  const {
+    alunoId,
+    disciplina1,
+    disciplina2,
+    disciplina3,
+    disciplina4,
+    disciplina5,
+  } = req.body;
   try {
     const boletim = await prisma.boletim.create({
       data: {
@@ -129,13 +153,20 @@ app.post('/boletins', async (req, res) => {
     });
     res.json(boletim);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao criar boletim' });
+    res.status(500).json({ error: "Erro ao criar boletim" });
   }
 });
 
-app.put('/boletins/:id', async (req, res) => {
+app.put("/boletins/:id", async (req, res) => {
   const { id } = req.params;
-  const { alunoId, disciplina1, disciplina2, disciplina3, disciplina4, disciplina5 } = req.body;
+  const {
+    alunoId,
+    disciplina1,
+    disciplina2,
+    disciplina3,
+    disciplina4,
+    disciplina5,
+  } = req.body;
   try {
     const boletim = await prisma.boletim.update({
       where: { id: parseInt(id) },
@@ -150,24 +181,24 @@ app.put('/boletins/:id', async (req, res) => {
     });
     res.json(boletim);
   } catch (error) {
-    res.status(404).json({ error: 'Boletim não encontrado' });
+    res.status(404).json({ error: "Boletim não encontrado" });
   }
 });
 
-app.delete('/boletins/:id', async (req, res) => {
+app.delete("/boletins/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.boletim.delete({
       where: { id: parseInt(id) },
     });
-    res.json({ message: 'Boletim deletado com sucesso' });
+    res.json({ message: "Boletim deletado com sucesso" });
   } catch (error) {
-    res.status(404).json({ error: 'Boletim não encontrado' });
+    res.status(404).json({ error: "Boletim não encontrado" });
   }
 });
 
 // Servir arquivos estáticos
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

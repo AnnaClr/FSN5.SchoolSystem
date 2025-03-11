@@ -1,16 +1,287 @@
+/* Estilos Gerais */
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  padding: 20px;
+}
+
+h1, h2 {
+  color: #fafcff;
+  font-weight: bold;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #3498db;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  padding: 15px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Tabelas */
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+}
+
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Botões */
+.btn {
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.btn-warning {
+  background-color: #ffcc00;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #f39c12;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.btn-info {
+  background-color: #00d0ff;
+  border: none;
+}
+
+.btn-info:hover {
+  background-color: #167da0;
+  transform: translateY(-2px);
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: #3498db;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  padding: 15px;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplicando Animações */
+.card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.table {
+  animation: slideInLeft 0.5s ease-in-out;
+}
+
+.modal-content {
+  animation: slideInRight 0.5s ease-in-out;
+}
+
+/* Barra de Pesquisa */
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  /* Ajustes Gerais */
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  /* Cards */
   .card {
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
   }
-  
+
+  .card-header {
+    padding: 10px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  /* Tabelas */
   .table {
-    margin-top: 20px;
+    margin-top: 10px;
   }
-  
+
+  .table th, .table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .table th {
+    font-size: 14px;
+  }
+
+  /* Botões */
+  .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    margin: 2px;
+  }
+
+  /* Modal */
   .modal-content {
-    border-radius: 10px;
+    margin: 10px;
   }
+
+  .modal-header, .modal-footer {
+    padding: 10px;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  /* Barra de Pesquisa */
+  .form-control {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* Ajustes Específicos para Telas Muito Pequenas */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    .table th, .table td {
+      padding: 6px;
+      font-size: 10px;
+    }
+
+    .table th {
+      font-size: 12px;
+    }
+
+    .btn {
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+
+    .form-control {
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+  }
+}
